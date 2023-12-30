@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #f6f8ff;
+    --window-background: #fefefe;
+    --primary-btn: #0079ff;
+    --toggle: rgba(105, 124, 154, 1);
+    --text-color: #4b6a9b;
+    --name-color: rgba(43, 52, 66, 1);
+  }
+  .dark {
+    --background: #141d2f;
+    --window-background: #1e2a47;
+    --primary-btn: #0079ff;
+    --toggle: rgba(255, 255, 255, 1);
+    --text-color: rgba(255, 255, 255, 1);
+    --name-color: rgba(255, 255, 255, 1);
+  }
+
+  * {
+    @apply m-0 p-0 box-border;
+  }
+  body {
+    @apply font-spaceMono;
+  }
+}
