@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import Toggle from '../ui/Toggle';
 
 const Header = () => {
@@ -9,4 +10,5 @@ const Header = () => {
   );
 };
 
-export default Header;
+const memoizedHeader = memo(Header);
+export default memoizedHeader;

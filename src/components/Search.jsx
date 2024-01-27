@@ -1,17 +1,18 @@
-import { useEffect, useState } from 'react';
+import { memo, useCallback, useContext } from 'react';
 import Button from './ui/button';
-const token = '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';
+import { DataContext } from '../context/Context';
+const token = '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';
 
-const Search = ({ data, setData, setFlag }) => {
-  const [query, setQuery] = useState('');
-  const [hidden, setHidden] = useState(true); // State to control visibility
+const Search = () => {
+  const { state, dispatch } = useContext(DataContext);
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
+    if (state.query.trim() === '') {
+      return;
+    }
     try {
-      setData(null);
-      setFlag(true);
-      setHidden(true);
-      const response = await fetch(`https://api.github.com/users/${query}`, {
+      dispatch({ type: 'fetch' });
+      const response = await fetch(`https://api.github.com/users/${state.query}`, {
         headers: {
           Accept: 'application/vnd.github.v3+json',
           Authorization: `Bearer ${token}`,
@@ -21,24 +22,20 @@ const Search = ({ data, setData, setFlag }) => {
 
       if (response.ok) {
         const userData = await response.json();
-        setFlag(false);
-        setData(userData); // Set the userData directly to the state
-        setQuery('');
+        dispatch({ type: 'fetch_success', data: userData });
       } else {
         console.error('Failed to fetch user data');
-        setHidden(false);
-        setFlag(false);
+        dispatch({ type: 'fetch_error' });
       }
     } catch (error) {
       console.error('Error fetching user data:', error);
-      setHidden(false);
-      setFlag(false);
+      dispatch({ type: 'fetch_error' });
     }
-  };
+  }, [dispatch, state.query]);
 
-  const handleButtonClick = () => {
+  const handleOnClick = useCallback(() => {
     fetchData();
-  };
+  }, [fetchData]);
 
   return (
     <div className="w-[730px] h-[69px] flex pl-8 pr-2.5 rounded-windowRadius bg-windowBackground dark:bg-windowBackgroundDark mb-6">
@@ -62,18 +59,20 @@ const Search = ({ data, setData, setFlag }) => {
           type="text"
           placeholder="Search GitHub username…"
           className="w-full bg-transparent focus-visible:outline-none text-header text-textM placeholder:text-[#4B6A9B] placeholder:text-textM dark:text-white dark:placeholder:text-white"
-          value={query}
-          onChange={e => setQuery(e.target.value)}
+          value={state.query}
+          onChange={e => dispatch({ type: 'change_query', payload: e.target.value })}
         />
       </div>
       <div className="flex items-center gap-6 shrink-0">
-        <span className={`text-[#F74646] text-errorText ${hidden ? 'hidden' : ''}`}>
+        <span className={`text-[#F74646] text-errorText ${state.hiddenText ? 'hidden' : ''}`}>
           No results
         </span>
-        <Button onClick={handleButtonClick} />
+        <Button onClick={handleOnClick} />
       </div>
     </div>
   );
 };
 
-export default Search;
+const memoizedSearch = memo(Search);
+
+export default memoizedSearch;

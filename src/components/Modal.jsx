@@ -1,20 +1,19 @@
 import Header from './header/Header';
 import Search from './Search';
 import Content from './Content';
-import { useState } from 'react';
+import { useContext } from 'react';
 import { ThreeDots } from 'react-loader-spinner';
+import { DataContext } from '../context/Context';
 
 const Modal = () => {
-  const [data, setData] = useState();
-  const [flag, setFlag] = useState(false);
+  const { state } = useContext(DataContext);
 
-  console.log(data);
   return (
     <div className="flex flex-col w-[730px]">
       <Header />
-      <Search data={data} setData={setData} setFlag={setFlag} />
+      <Search />
       <ThreeDots
-        visible={flag}
+        visible={state.visible}
         height="80"
         width="80"
         color="#0079ff"
@@ -23,7 +22,7 @@ const Modal = () => {
         wrapperStyle={{ margin: '0 auto' }}
         wrapperClass=""
       />
-      <Content user={data} />
+      {!state.visible && <Content />}
     </div>
   );
 };

@@ -1,6 +1,11 @@
-import React from 'react';
+import { memo, useContext } from 'react';
+import { DataContext } from '../context/Context';
 
-const Content = ({ user }) => {
+const Content = () => {
+  const { state } = useContext(DataContext);
+
+  const user = state.data;
+
   if (!user) {
     return null; // If user is null, return null to hide the component
   }
@@ -134,4 +139,6 @@ const Content = ({ user }) => {
   );
 };
 
-export default Content;
+const memoizedContent = memo(Content);
+
+export default memoizedContent;
