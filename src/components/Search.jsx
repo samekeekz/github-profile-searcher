@@ -1,7 +1,7 @@
 import { memo, useCallback, useContext } from 'react';
 import Button from './ui/button';
 import { DataContext } from '../context/Context';
-const token = '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';
+const token = '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';
 
 const Search = () => {
   const { state, dispatch } = useContext(DataContext);

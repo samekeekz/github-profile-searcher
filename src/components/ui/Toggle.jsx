@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const Toggle = () => {
   const [isNightMode, setIsNightMode] = useState(true);
@@ -16,7 +16,7 @@ const Toggle = () => {
   };
   return (
     <div
-      className="flex items-center gap-x-4 cursor-pointer text-toggle hover:text-header dark:text-white"
+      className="flex items-center gap-x-4 cursor-pointer text-toggle hover:text-header dark:text-white dark:hover:text-toggle"
       onClick={toggleMode}
     >
       <p className="text-textXssBold uppercase tracking-[2.5px]">

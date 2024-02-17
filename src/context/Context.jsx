@@ -16,7 +16,7 @@ const reducer = (state, action) => {
         query: '',
         visible: true,
         hiddenText: true,
-        error: null, // Clear previous error on new fetch
+        error: null,
       };
     }
     case 'fetch_success': {
@@ -31,7 +31,7 @@ const reducer = (state, action) => {
         ...state,
         visible: false,
         hiddenText: false,
-        error: action.error, // Store error details
+        error: action.error,
       };
     }
     default:

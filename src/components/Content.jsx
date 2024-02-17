@@ -6,9 +6,7 @@ const Content = () => {
 
   const user = state.data;
 
-  if (!user) {
-    return null; // If user is null, return null to hide the component
-  }
+  if (!user) return null;
 
   const formatDate = dateString => {
     const options = { year: 'numeric', month: 'short', day: 'numeric' };
@@ -57,7 +55,10 @@ const Content = () => {
               Joined {formatDate(user.created_at)}
             </p>
           </div>
-          <a href={`github.com/${user.login}`} className="text-textS text-primaryBtn inline-block">
+          <a
+            href={`https://github.com/${user.login}`}
+            className="text-textS text-primaryBtn inline-block"
+          >
             @{user.login}
           </a>
         </div>
