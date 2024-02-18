@@ -1,7 +1,7 @@
 import { memo, useCallback, useContext } from 'react';
 import Button from './ui/button';
 import { DataContext } from '../context/Context';
-const token = await import.meta.env.VITE_GITHUB_TOKEN;
+const token = import.meta.env.VITE_GITHUB_TOKEN;
 
 const Search = () => {
   const { state, dispatch } = useContext(DataContext);
