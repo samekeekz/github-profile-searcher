@@ -1,5 +1,5 @@
 import { memo, useCallback, useContext } from 'react';
-import Button from './ui/button';
+import Button from './ui/Button';
 import { DataContext } from '../context/Context';
 const token = import.meta.env.VITE_GITHUB_TOKEN;
 
